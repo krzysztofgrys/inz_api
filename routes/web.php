@@ -14,3 +14,13 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::group(
+    ['prefix' => 'v1'], function () {
+    Route::group(
+        ['namespace' => 'App\Tags'], function () {
+        Route::resource('tags', 'TagsController');
+    }
+    );
+}
+);
