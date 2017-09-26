@@ -26,19 +26,12 @@ class TagsController extends Controller{
 
     public function index(){
 
-        $tags = $this->tagsGateway->getTags();
+        return 1;
 
-        return $this->response->withCollection($tags,)
-        return json_encode($tags,JSON_PRETTY_PRINT);
     }
 
     public function show(Request $request, $tag){
-
-
-
         $tag = $this->tagsGateway->getTag($tag);
-
-        return $this->response->withItem($tag, new BookTrans);
     }
 
 }
