@@ -10,7 +10,6 @@ namespace App\Tags;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use EllipseSynergie\ApiResponse\Contracts\Response;
 
 
 class TagsController extends Controller{
@@ -18,9 +17,8 @@ class TagsController extends Controller{
     protected $tagsGateway;
     protected $response;
 
-    public function __construct(TagsGateway $tagsGateway, Response $response)
+    public function __construct(TagsGateway $tagsGateway)
     {
-        $this->response = $response;
         $this->tagsGateway = $tagsGateway;
     }
 
@@ -31,7 +29,8 @@ class TagsController extends Controller{
     }
 
     public function show(Request $request, $tag){
-        $tag = $this->tagsGateway->getTag($tag);
+
+        return 1;
     }
 
 }
