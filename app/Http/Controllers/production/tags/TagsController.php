@@ -10,6 +10,7 @@ namespace App\Tags;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Response\ApiResponse;
 
 
 class TagsController extends Controller{
@@ -24,7 +25,7 @@ class TagsController extends Controller{
 
     public function index(){
 
-        return 1;
+        return ApiResponse::makeResponse(['1']);
 
     }
 
