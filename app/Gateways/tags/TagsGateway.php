@@ -16,18 +16,20 @@ class TagsGateway extends Model
 
     public function getTags()
     {
-        $query = self::select('name')->get();
+        $query = self::all();
 
-        if($query->isEmpty()){
+        if ($query->isEmpty()) {
             return 404;
         }
+
         return $query;
     }
 
-    public function getTag($tag){
-        $query = self::select('name')->where('name','=',$tag)->get();
+    public function getTag($tag)
+    {
+        $query = self::select('name')->where('name', '=', $tag)->get();
 
-        if($query->isEmpty()){
+        if ($query->isEmpty()) {
             return 404;
         }
 

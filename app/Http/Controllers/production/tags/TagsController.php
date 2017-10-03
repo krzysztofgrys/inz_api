@@ -13,7 +13,8 @@ use Illuminate\Http\Request;
 use App\Response\ApiResponse;
 
 
-class TagsController extends Controller{
+class TagsController extends Controller
+{
 
     protected $tagsGateway;
     protected $response;
@@ -23,17 +24,20 @@ class TagsController extends Controller{
         $this->tagsGateway = $tagsGateway;
     }
 
-    public function index(){
+    public function index()
+    {
 
         $tags = $this->tagsGateway->getTags();
 
         return ApiResponse::makeResponse($tags);
-
     }
 
-    public function show(Request $request, $tag){
+    public function show(Request $request, $tag)
+    {
 
-        return 1;
+        $tag = $this->tagsGateway->getTag($tag);
+
+        return ApiResponse::makeResponse($tag);
     }
 
 }
