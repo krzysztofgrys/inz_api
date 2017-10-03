@@ -25,7 +25,9 @@ class TagsController extends Controller{
 
     public function index(){
 
-        return ApiResponse::makeResponse(['1']);
+        $tags = $this->tagsGateway->getTags();
+
+        return ApiResponse::makeResponse($tags);
 
     }
 
