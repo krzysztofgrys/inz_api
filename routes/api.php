@@ -16,10 +16,21 @@ use Illuminate\Http\Request;
 
 Route::group(
     ['prefix' => 'v1'], function () {
+
     Route::group(
-        ['namespace' => 'App\Tags'], function () {
+        ['namespace' => 'App\Auth'], function () {
+        Route::resource('login', 'LoginController');
+        Route::resource('register', 'RegisterController');
+    });
+
+    Route::group(
+        ['namespace' => 'App\Tags', 'middleware' => 'auth:api'], function () {
         Route::resource('tags', 'TagsController');
-    }
-    );
+    });
+    Route::group(
+        ['namespace' => 'App\Users'], function () {
+        Route::resource('users', 'UsersController');
+    });
+
 }
 );

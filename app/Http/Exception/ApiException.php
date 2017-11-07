@@ -10,19 +10,18 @@ namespace App\Exception;
 
 
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
-use Throwable;
 
-class ApiException extends \Exception implements HttpExceptionInterface, \JsonSerializable{
-
+class ApiException extends \Exception implements HttpExceptionInterface, \JsonSerializable
+{
     private $statusCode;
     private $headers;
     protected $message = null;
     protected $apiErrorCode;
     protected $detailMessage = null;
 
-    public function __construct($statusCode, $messageCode = null, $subString = null, $apiErrorCode = null, \Exception $previous = null, array $headers = array(), $code = 0
-    )
-    {
+    public function __construct(
+        $statusCode, $messageCode = null, $subString = null, $apiErrorCode = null, \Exception $previous = null, array $headers = array(), $code = 0
+    ) {
         if (func_num_args() == 2) {
             if (is_numeric($messageCode)) {
                 list($apiErrorCode, $messageCode) = array($messageCode, null);
@@ -72,16 +71,33 @@ class ApiException extends \Exception implements HttpExceptionInterface, \JsonSe
         parent::__construct($this->message, $statusCode, $previous);
     }
 
+    /**
+     * Function to get the statusCode.
+     */
+    public function getStatusCode()
+    {
+        return $this->statusCode;
+    }
 
+    /**
+     * Function to get the headers.
+     */
     public function getHeaders()
     {
         return $this->headers;
     }
-    public function getStatusCode()
-    {
 
+    /**
+     * Function to get the ApiErrorCode.
+     */
+    public function getApiErrorCode()
+    {
+        return $this->apiErrorCode;
     }
 
+    /**
+     * Function to get the detailMessage.
+     */
     public function getDetailMessage()
     {
         if (!empty($this->apiErrorCode) && \Lang::has('httpstatus.' . $this->apiErrorCode)) {
@@ -91,10 +107,31 @@ class ApiException extends \Exception implements HttpExceptionInterface, \JsonSe
         return $this->detailMessage;
     }
 
-    public function jsonSerialize()
+    public function getDocUrlReference()
     {
-        return $this->statusCode;
+        if (!empty($this->apiErrorCode)) {
+            $href = \Config::get('api.api_error_doc_url') . '#' . $this->apiErrorCode; // $e->getApiErrorCode();
+        } else {
+            $href = \Config::get('api.api_error_doc_url') . '#' . $this->statusCode;
+        }
+        return $href;
     }
+
+    /**
+     * Function to return a concatenated string made from
+     * the variables set in the object.
+     *
+     * @return string
+     */
+    public function prettyPrint()
+    {
+        $response['header']
+                           =
+            __CLASS__ . "[{$this->code}]:[{$this->statusCode}]:[{$this->message}]:{$this->getMessage()} at {$this->getFile()}({$this->getLine()})";
+        $response['stack'] = "{$this->__toString()}";
+        return $response;
+    }
+
 
     protected function publishAttributes()
     {
@@ -114,4 +151,13 @@ class ApiException extends \Exception implements HttpExceptionInterface, \JsonSe
     }
 
 
+    public function jsonSerialize()
+    {
+        return $this->publishAttributes();
+    }
+
+    public function xmlSerialize()
+    {
+        return $this->publishAttributes();
+    }
 }
