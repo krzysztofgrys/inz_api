@@ -32,5 +32,10 @@ Route::group(
         Route::resource('users', 'UsersController');
     });
 
+    Route::group(
+        ['namespace' => 'App\Entity', 'middleware' => 'auth:api'], function () {
+        Route::resource('entity', 'EntityController');
+    });
+
 }
 );
