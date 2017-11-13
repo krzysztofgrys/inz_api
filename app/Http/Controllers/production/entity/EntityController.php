@@ -28,12 +28,11 @@ class EntityController extends Controller
 
     public function index()
     {
-        $user     = Auth::user();
         $entities = $this->entityGateway->getEntities();
         $response = [];
         foreach ($entities as $entity) {
             $response1['id']          = $entity->id;
-            $response1['user_name']   = $user->name;
+            $response1['user_name']   = 'user';
             $response1['title']       = $entity->title;
             $response1['description'] = $entity->description;
             $response1['media']       = $entity->media;

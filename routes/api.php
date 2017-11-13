@@ -33,7 +33,7 @@ Route::group(
     });
 
     Route::group(
-        ['namespace' => 'App\Entity', 'middleware' => 'auth:api'], function () {
+        ['namespace' => 'App\Entity'], function () {
         Route::resource('entity', 'EntityController');
     });
 
