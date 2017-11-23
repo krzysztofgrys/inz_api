@@ -10,6 +10,8 @@ namespace App\Entity;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Exception\ApiException;
+use Carbon\Carbon;
+
 
 class EntityGateway extends Model
 {
@@ -38,7 +40,6 @@ class EntityGateway extends Model
 
     public function addEntity($user, $title, $description, $media)
     {
-
         $query = self::insert(
             [
                 'user_id'     => $user,
@@ -48,7 +49,23 @@ class EntityGateway extends Model
             ]);
     }
 
-    public function getLatestId(){
+    public function getLatestId()
+    {
         return self::all()->last()->id;
+    }
+
+
+    public function getTopEntities($limit)
+    {
+
+        $carbon = Carbon::now(-$limit);
+
+        $query = self::select('*')->where('created_at', '>', $carbon )->get();
+
+        if (empty($query)) {
+            throw new ApiException(404, '404_no_content');
+        }
+
+
     }
 }

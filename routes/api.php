@@ -37,5 +37,9 @@ Route::group(
         Route::resource('entity', 'EntityController');
     });
 
+    Route::group(
+        ['namespace' => 'App\Top'], function (){
+            Route::resource('top', 'TopController');
+    });
 }
 );

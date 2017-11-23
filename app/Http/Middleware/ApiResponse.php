@@ -181,4 +181,10 @@ class ApiResponse extends Response
 
         return $link;
     }
+
+
+    public static function encode($data, $statusCode, $header)
+    {
+
+    }
 }
