@@ -23,6 +23,7 @@ class EntityController extends Controller
 
     public function __construct(EntityGateway $entityGateway)
     {
+        $this->middleware('auth:api', ['only' => ['store']]);
         $this->entityGateway = $entityGateway;
     }
 
@@ -45,12 +46,12 @@ class EntityController extends Controller
 
     public function show(Request $request, $entity)
     {
-        $user     = Auth::user();
         $entities = $this->entityGateway->getEntity($entity);
+
         $response = [];
         foreach ($entities as $entity) {
             $response1['id']          = $entity->id;
-            $response1['user_name']   = $user->name;
+            $response1['user_name']   = $entity->user_name;
             $response1['title']       = $entity->title;
             $response1['description'] = $entity->description;
             $response1['media']       = $entity->media;
@@ -71,8 +72,8 @@ class EntityController extends Controller
         ];
 
         $rules = [
-            'title'       => 'required|alpha|between:1,50',
-            'description' => 'required|alpha|between:1,50',
+            'title'       => 'required|alpha|between:1,100',
+            'description' => 'required|alpha|between:1,360',
             'media'       => 'required|alpha',
         ];
 

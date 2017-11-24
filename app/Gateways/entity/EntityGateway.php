@@ -30,7 +30,9 @@ class EntityGateway extends Model
 
     public function getEntity($entity)
     {
-        $query = self::select('*')->where('id', '=', $entity)->get();
+        $query = $this->join('users', 'entity.user_id', '=', 'users.id')->
+        select('*')->where('entity.id', '=', $entity)->get();
+
         if (empty($query)) {
             throw new ApiException(404, '404_no_content');
         }
@@ -60,7 +62,7 @@ class EntityGateway extends Model
 
         $carbon = Carbon::now(-$limit);
 
-        $query = self::select('*')->where('created_at', '>', $carbon )->get();
+        $query = self::select('*')->where('created_at', '>', $carbon)->get();
 
         if (empty($query)) {
             throw new ApiException(404, '404_no_content');
