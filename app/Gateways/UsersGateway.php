@@ -21,10 +21,15 @@ class UsersGateway extends Model
 
     public function getUser($id)
     {
-        $query = $this->select('*')->where('id', '=', $id)->get();
+        $query = $this->select('id', 'name', 'avatar')->where('id', '=', $id)->get();
 
         return $query;
     }
 
 
+    public function updateUserData(){
+
+
+
+    }
 }

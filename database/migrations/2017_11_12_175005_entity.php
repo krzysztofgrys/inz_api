@@ -23,7 +23,6 @@ class Entity extends Migration
             $table->string('url')->nullable();
             $table->string('own')->nullable();
             $table->string('selected_type')->default('url');
-            $table->integer('likes')->default(0);
             $table->boolean('isEdited')->default(false);
             $table->boolean('isDeleted')->default(false);
             $table->timestamps();

@@ -22,6 +22,8 @@ class  CommentsController extends Controller
     public function __construct(CommentsGateway $commentsGateway)
     {
         $this->commentsGateway = $commentsGateway;
+        $this->middleware('auth:api', ['only' => ['store']]);
+
     }
 
     public function show(Request $request, $entity)

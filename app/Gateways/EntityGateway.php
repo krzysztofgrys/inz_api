@@ -69,7 +69,14 @@ class EntityGateway extends Model
         if (empty($query)) {
             throw new ApiException(404, '404_no_content');
         }
+    }
 
+    public function getUserEntities($userId)
+    {
 
+        $query = self::select('*')->where('user_id', '=', $userId)->get();
+
+        return $query;
     }
 }
+

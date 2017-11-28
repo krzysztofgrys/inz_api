@@ -18,6 +18,8 @@ class EntityTag extends Migration
             $table->integer('entity_id')->unsigned();
             $table->foreign('tag_id')->references('id')->on('tags');
             $table->foreign('entity_id')->references('id')->on('entity');
+            $table->primary(['tag_id', 'entity_id']);
+
             $table->timestamps();
         });
     }

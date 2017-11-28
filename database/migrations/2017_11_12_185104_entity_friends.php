@@ -21,6 +21,8 @@ class EntityFriends extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('friend_id')->references('id')->on('users');
             $table->integer('status');
+            $table->primary(['user_id', 'friend_id']);
+
             $table->timestamps();
         });
     }

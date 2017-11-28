@@ -20,6 +20,7 @@ class UserMessages extends Migration
             $table->foreign('sender_id')->references('id')->on('users');
             $table->foreign('receiver_id')->references('id')->on('users');
             $table->foreign('message_id')->references('id')->on('messages');
+            $table->primary(['sender_id', 'receiver_id','message_id']);
             $table->timestamps();
         });
     }

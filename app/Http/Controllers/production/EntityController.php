@@ -9,6 +9,7 @@
 namespace App\Entity;
 
 use App\Http\Controllers\Controller;
+use App\Ratings\RatingGateway;
 use Illuminate\Http\Request;
 use App\Response\ApiResponse;
 use Illuminate\Support\Facades\Auth;
@@ -16,17 +17,21 @@ use Illuminate\Support\Facades\Auth;
 class EntityController extends Controller
 {
     protected $entityGateway;
+    protected $ratingGateway;
 
 
-    public function __construct(EntityGateway $entityGateway)
+    public function __construct(EntityGateway $entityGateway, RatingGateway $ratingGateway)
     {
         $this->middleware('auth:api', ['only' => ['store']]);
         $this->entityGateway = $entityGateway;
+        $this->ratingGateway = $ratingGateway;
     }
 
     public function index()
     {
         $entities = $this->entityGateway->getEntities();
+        $rating   = $this->ratingGateway->getEntitiesRating();
+
         $response = [];
         foreach ($entities as $entity) {
             $response1['id']          = $entity->id;
@@ -34,6 +39,7 @@ class EntityController extends Controller
             $response1['title']       = $entity->title;
             $response1['description'] = $entity->description;
             $response1['media']       = $entity->media;
+            $response1['rating']      = array_key_exists($entity->id, $rating->toArray()) ? $rating[$entity->id]->count : 0;
             $response1['href']        = $_SERVER['REQUEST_URI'] . '/' . $entity->id;
             $response[]               = $response1;
         }
@@ -44,6 +50,7 @@ class EntityController extends Controller
     public function show(Request $request, $entity)
     {
         $entities = $this->entityGateway->getEntity($entity);
+        $rating   = $this->ratingGateway->getEntityRating($entity);
 
         $response = [];
         foreach ($entities as $entity) {
@@ -52,6 +59,7 @@ class EntityController extends Controller
             $response1['title']       = $entity->title;
             $response1['description'] = $entity->description;
             $response1['media']       = $entity->media;
+            $response1['rating']      = $rating;
             $response1['href']        = $_SERVER['REQUEST_URI'] . '/' . $entity->id;
             $response[]               = $response1;
         }

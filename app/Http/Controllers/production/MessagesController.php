@@ -47,8 +47,8 @@ class MessagesController extends Controller
     public function show($id)
     {
 
-        $user     = Auth::user()->id;
-        $messages = $this->messagesGateway->getMessages($user, $id);
+        $user     = Auth::user();
+        $messages = $this->messagesGateway->getMessages($user->id, $id);
         $sender   = $user;
         $receiver = $this->usersGateway->getUser($id);
 
@@ -56,7 +56,7 @@ class MessagesController extends Controller
         $response = [
             'messages' => $messages,
             'sender'   => $sender,
-            'receiver' => $receiver
+            'receiver' => $receiver[0]
         ];
 
         return ApiResponse::makeResponse($response);

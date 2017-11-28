@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class EntityComments extends Migration
+class CreateEntityRatingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class EntityComments extends Migration
      */
     public function up()
     {
-        Schema::create('entity_comments', function (Blueprint $table) {
+        Schema::create('entity_ratings', function (Blueprint $table) {
             $table->integer('entity_id')->unsigned();
-            $table->integer('comments_id')->unsigned();
-            $table->foreign('entity_id')->references('id')->on('entity');
-            $table->foreign('comments_id')->references('id')->on('comments');
-            $table->primary(['entity_id', 'comments_id']);
-
+            $table->integer('user_id')->unsigned();
+            $table->foreign('entity_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('entity');
+            $table->primary(['entity_id', 'user_id']);
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class EntityComments extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('entity_ratings');
     }
 }

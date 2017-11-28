@@ -54,5 +54,11 @@ Route::group(
     }
     );
 
+    Route::group(
+        ['namespace' => 'App\Ratings'], function(){
+        Route::resource('rate', 'RatingsController');
+    }
+    );
+
 }
 );
