@@ -8,17 +8,14 @@
 
 namespace App\Entity;
 
-use App\Exception\ApiException;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Response\ApiResponse;
-use Validator;
 use Illuminate\Support\Facades\Auth;
 
 class EntityController extends Controller
 {
     protected $entityGateway;
-    protected $response;
 
 
     public function __construct(EntityGateway $entityGateway)
@@ -66,25 +63,27 @@ class EntityController extends Controller
     {
 
         $input = [
-            'title'       => $request->get('title'),
-            'description' => $request->get('description'),
-            'media'       => $request->get('media')
+            'title'         => $request->get('title'),
+            'description'   => $request->get('description'),
+            'thumbnail'     => $request->get('thumbnail'),
+            'url'           => $request->get('url'),
+            'own_input'     => $request->get('own_input'),
+            'selected_type' => $request->get('selected_type')
         ];
 
         $rules = [
-            'title'       => 'required|alpha|between:1,100',
-            'description' => 'required|alpha|between:1,360',
-            'media'       => 'required|alpha',
+            'title'         => 'required|alpha|between:1,100',
+            'description'   => 'required|alpha|between:1,360',
+            'thumbnail'     => 'required|alpha',
+            'selected_type' => 'required|alpha',
+            'url'           => 'required_if:selected_type,ulr',
+            'own_input'     => 'required_if:selected_type,own'
         ];
-
-//        if (Validator::make($input, $rules)->fails()) {
-//            Throw new ApiException(400, 'wrong_parameter');
-//        }
 
 
         $user = Auth::user();
-        $this->entityGateway->addEntity($user->id, $input['title'], $input['description'], $input['media']);
-
+        $this->entityGateway->addEntity($user->id, $input['title'], $input['description'], $input['thumbnail'], $input['selected_type'],
+            $input['url'], $input['own_input']);
 
         return $this->entityGateway->getLatestId();
     }

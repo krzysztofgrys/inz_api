@@ -41,5 +41,18 @@ Route::group(
         ['namespace' => 'App\Top'], function (){
             Route::resource('top', 'TopController');
     });
+
+    Route::group(
+        ['namespace' => 'App\Comments'], function(){
+            Route::resource('comment', 'CommentsController');
+    }
+    );
+
+    Route::group(
+        ['namespace' => 'App\Messages'], function(){
+        Route::resource('messages', 'MessagesController');
+    }
+    );
+
 }
 );

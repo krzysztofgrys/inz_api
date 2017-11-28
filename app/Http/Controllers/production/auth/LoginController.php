@@ -27,7 +27,9 @@ class LoginController extends Controller
      */
     public function store(){
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
+
             $user = Auth::user();
+
             $success['token'] =  $user->createToken('MyApp')->accessToken;
             $success['user'] =   $user;
 

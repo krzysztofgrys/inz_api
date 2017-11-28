@@ -18,10 +18,8 @@ class Comments extends Migration
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('comments');
-            $table->integer('likes');
-            $table->integer('dislikes');
-            $table->boolean('isEdited');
-            $table->boolean('isDeleted');
+            $table->boolean('isEdited')->default(false);
+            $table->boolean('isDeleted')->default(false);
             $table->timestamps();
         });
     }

@@ -21,9 +21,9 @@ class EntityGateway extends Model
     {
         $query = self::all();
 
-        if ($query->isEmpty()) {
-            throw new ApiException(404, '404_no_content');
-        }
+//        if ($query->isEmpty()) {
+//            throw new ApiException(404, '404_no_content');
+//        }
 
         return $query;
     }
@@ -40,14 +40,16 @@ class EntityGateway extends Model
         return $query;
     }
 
-    public function addEntity($user, $title, $description, $media)
+    public function addEntity($user, $title, $description, $thumbnail, $selectedType, $url, $own)
     {
         $query = self::insert(
             [
                 'user_id'     => $user,
                 'title'       => $title,
                 'description' => $description,
-                'media'       => $media
+                'thumbnail'   => $thumbnail,
+                'url'         => $url,
+                'own'         => $own,
             ]);
     }
 
