@@ -25,17 +25,15 @@ class RatingsController extends Controller
     public function __construct(RatingGateway $ratingGateway)
     {
         $this->ratingGateway = $ratingGateway;
-//        $this->middleware('auth:api');
+        $this->middleware('auth:api');
     }
 
 
-    public function store($entityId)
+    public function store(Request $request)
     {
-
-//        $user = Auth::user();
+        $user = Auth::user();
+        $entityId = $request->get('entityId');
         $this->ratingGateway->rateEntity($entityId, $user->id);
-
-
     }
 
     public function index()
@@ -43,7 +41,7 @@ class RatingsController extends Controller
 
         $rating = $this->ratingGateway->getEntitiesRating();
 
-        dd($rating);
+        return $rating;
 
     }
 

@@ -16,8 +16,8 @@ class CreateEntityRatingsTable extends Migration
         Schema::create('entity_ratings', function (Blueprint $table) {
             $table->integer('entity_id')->unsigned();
             $table->integer('user_id')->unsigned();
-            $table->foreign('entity_id')->references('id')->on('users');
-            $table->foreign('user_id')->references('id')->on('entity');
+            $table->foreign('entity_id')->references('id')->on('entity');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->primary(['entity_id', 'user_id']);
             $table->timestamps();
         });

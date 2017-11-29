@@ -17,14 +17,22 @@ use DB;
 class RatingGateway extends Model
 {
     protected $table = 'entity_ratings';
+    public $incrementing = false;
 
 
     public function rateEntity($entityId, $userId)
     {
 
-        $this->entity_id = $entityId;
-        $this->user_id   = $userId;
-        $this->save();
+        $entity = $this::where('entity_id',$entityId)->where('user_id',$userId)->first();
+
+        if($entity == null){
+            $this->entity_id = $entityId;
+            $this->user_id   = $userId;
+            $this->save();
+        }else{
+            $this::where('entity_id',$entityId)->where('user_id',$userId)->delete();
+        }
+
 
         return true;
 

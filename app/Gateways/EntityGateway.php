@@ -42,15 +42,17 @@ class EntityGateway extends Model
 
     public function addEntity($user, $title, $description, $thumbnail, $selectedType, $url, $own)
     {
-        $query = self::insert(
-            [
-                'user_id'     => $user,
-                'title'       => $title,
-                'description' => $description,
-                'thumbnail'   => $thumbnail,
-                'url'         => $url,
-                'own'         => $own,
-            ]);
+
+        $this->user_id = $user;
+        $this->title = $title;
+        $this->description = $description;
+        $this->thumbnail = $thumbnail;
+        $this->url = $url;
+        $this->own = $own;
+
+        $this->save();
+
+
     }
 
     public function getLatestId()
