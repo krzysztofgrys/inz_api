@@ -31,7 +31,13 @@ class EntityGateway extends Model
     public function getEntity($entity)
     {
         $query = $this->join('users', 'entity.user_id', '=', 'users.id')->
-        select('*')->where('entity.id', '=', $entity)->get();
+        select('users.id AS user_id',
+            'entity.id AS entity_id',
+            'users.name as user_name',
+            'entity.title as title',
+            'entity.description as description')->where('entity.id', '=', $entity)->get();
+
+
 
         if (empty($query)) {
             throw new ApiException(404, '404_no_content');

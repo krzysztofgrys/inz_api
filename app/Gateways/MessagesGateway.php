@@ -45,7 +45,7 @@ class MessagesGateway extends Model
 
     public function sendMessage($sender, $receiver, $message)
     {
-        $this->message    = $message;
+        $this->message = $message;
         $this->save();
         $id = $this->id;
 

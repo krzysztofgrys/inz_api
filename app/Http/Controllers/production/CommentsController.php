@@ -23,27 +23,32 @@ class  CommentsController extends Controller
     {
         $this->commentsGateway = $commentsGateway;
         $this->middleware('auth:api', ['only' => ['store']]);
-
     }
 
     public function show(Request $request, $entity)
     {
-
         $comments = $this->commentsGateway->getEntityComments($entity);
 
         return ApiResponse::makeResponse($comments);
 
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
 
-        $this->commentsGateway->addComments(1,'siema',1);
+        $user    = Auth::user();
+        $comment = $request->get('comment');
+        $entity  = $request->get('entity');
+
+        $this->commentsGateway->addComments($entity, $comment, $user->id);
+
+        return $entity;
     }
 
-    public function destroy(Request $request, $entityId){
+    public function destroy(Request $request, $entityId)
+    {
 
     }
-
 
 
 }

@@ -54,14 +54,14 @@ class EntityController extends Controller
 
         $response = [];
         foreach ($entities as $entity) {
-            $response1['id']          = $entity->id;
-            $response1['user_name']   = $entity->user_name;
-            $response1['title']       = $entity->title;
+            $response1['user_name']    = $entity->user_name;
+            $response1['entity_id']    = $entity->entity_id;
+            $response1['user_id']      = $entity->user_id;
+            $response1['media']        = $entity->media;
+            $response1['title']        = $entity->title;
+            $response1['rating']       = $rating;
             $response1['description'] = $entity->description;
-            $response1['media']       = $entity->media;
-            $response1['rating']      = $rating;
-            $response1['href']        = $_SERVER['REQUEST_URI'] . '/' . $entity->id;
-            $response[]               = $response1;
+            $response[]                = $response1;
         }
 
         return ApiResponse::makeResponse($response);
