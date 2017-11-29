@@ -45,12 +45,10 @@ class MessagesGateway extends Model
 
     public function sendMessage($sender, $receiver, $message)
     {
-        $this->body    = $message;
-        $this->title   = '';
-        $this->is_read = false;
+        $this->message    = $message;
         $this->save();
-
         $id = $this->id;
+
 
         DB::table('user_messages')->
         insert([

@@ -30,6 +30,7 @@ Route::group(
     Route::group(
         ['namespace' => 'App\Users'], function () {
         Route::resource('users', 'UsersController');
+        Route::resource('user_autocomplete', 'AutoCompleteController');
     });
 
     Route::group(

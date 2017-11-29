@@ -65,8 +65,16 @@ class MessagesController extends Controller
 
     public function store(Request $request)
     {
+        $user     = Auth::user();
 
+        $receiver = $request->get('receiver');
 
-        $this->messagesGateway->sendMessage(2, 1, 'siemaxDDD');
+        $receiver = $this->usersGateway->getUserByName($receiver)[0];
+
+        $message = $request->get('message');
+
+        $this->messagesGateway->sendMessage($user->id, $receiver->id, $message);
+
+        return $receiver->id;
     }
 }

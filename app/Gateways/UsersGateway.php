@@ -26,10 +26,26 @@ class UsersGateway extends Model
         return $query;
     }
 
+    public function getUserByName($name){
+        $query = $this->select('id', 'name', 'avatar')->where('name', '=', $name)->get();
+
+        return $query;
+
+    }
+
 
     public function updateUserData(){
 
 
+
+    }
+
+
+    public function searchUser($userName){
+
+        $query= $this->select('name')-> where('name', 'like', $userName)->get()->pluck('name');
+
+        return $query;
 
     }
 }
