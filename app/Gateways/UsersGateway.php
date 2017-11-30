@@ -17,6 +17,7 @@ class UsersGateway extends Model
 {
     protected $table      = 'users';
     protected $primaryKey = 'id';
+    protected $fillable   = ['city', 'description', 'fullname'];
 
 
     public function getUser($id)
@@ -26,7 +27,8 @@ class UsersGateway extends Model
         return $query;
     }
 
-    public function getUserByName($name){
+    public function getUserByName($name)
+    {
         $query = $this->select('id', 'name', 'avatar')->where('name', '=', $name)->get();
 
         return $query;
@@ -34,17 +36,35 @@ class UsersGateway extends Model
     }
 
 
-    public function updateUserData(){
+    public function updateUserData()
+    {
 
 
     }
 
 
-    public function searchUser($userName){
+    public function searchUser($userName)
+    {
 
-        $query= $this->select('name')-> where('name', 'like', $userName)->get()->pluck('name');
+        $query = $this->select('name')->where('name', 'like', $userName)->get()->pluck('name');
 
         return $query;
 
+    }
+
+
+    public function editUser($id, $city, $description, $fullname)
+    {
+
+        $user = $this::find($id);
+
+        $user->city        = $city;
+        $user->description = $description;
+        $user->fullname    = $fullname;
+
+        $user->save();
+
+
+        return $id;
     }
 }

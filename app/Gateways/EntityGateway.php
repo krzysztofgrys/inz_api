@@ -70,7 +70,35 @@ class EntityGateway extends Model
     public function getTopEntities($limit)
     {
 
-        $carbon = Carbon::now(-$limit);
+        $carbon = Carbon::now();
+
+        if(is_numeric($limit)){
+            $carbon = $carbon->subHour($limit);
+        }else{
+
+            switch ($limit){
+                case 'week':
+                    $carbon = $carbon->subWeek(1);
+
+                    break;
+
+                case 'year':
+                    $carbon = $carbon->subYear(1);
+
+                    break;
+                case 'month':
+                    $carbon = $carbon->subMonth(1);
+
+                    break;
+                case 'all':
+                    $carbon = $carbon->subYears(100);
+                    break;
+            }
+
+
+        }
+
+
 
 
         $query = self::leftJoin('entity_ratings', 'entity_id', 'entity.id')->

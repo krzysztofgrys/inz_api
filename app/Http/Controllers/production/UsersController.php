@@ -44,4 +44,17 @@ class  UsersController extends Controller
 
         return ApiResponse::make($response);
     }
+
+    public function update(Request $request, $user)
+    {
+
+
+        $city        = $request->get('city', '');
+        $description = $request->get('description', '');
+        $fullname    = $request->get('fullname', '');
+
+        $user = $this->usersGateway->editUser($user, $city, $description, $fullname);
+
+        return $user;
+    }
 }
