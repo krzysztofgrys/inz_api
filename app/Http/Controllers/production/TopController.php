@@ -47,4 +47,24 @@ class TopController extends Controller
 
         return ApiResponse::makeResponse($data);
     }
+
+
+    public function show(Request $request, $limit){
+
+        $input = [
+            'limit' => $request->get('limit', 6)
+        ];
+
+        $rules = [
+            'limit'    => 'required|numeric|between:1,24',
+        ];
+
+        if(Validator::make($input, $rules)->fails()){
+            Throw new ApiException(400);
+        }
+
+        $data = $this->entityGateway->getTopEntities($limit);
+
+        return ApiResponse::makeResponse($data);
+    }
 }

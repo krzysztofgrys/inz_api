@@ -37,7 +37,6 @@ class UsersGateway extends Model
     public function updateUserData(){
 
 
-
     }
 
 

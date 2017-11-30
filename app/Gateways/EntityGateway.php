@@ -11,6 +11,7 @@ namespace App\Entity;
 use Illuminate\Database\Eloquent\Model;
 use App\Exception\ApiException;
 use Carbon\Carbon;
+use DB;
 
 
 class EntityGateway extends Model
@@ -38,7 +39,6 @@ class EntityGateway extends Model
             'entity.description as description')->where('entity.id', '=', $entity)->get();
 
 
-
         if (empty($query)) {
             throw new ApiException(404, '404_no_content');
         }
@@ -49,12 +49,12 @@ class EntityGateway extends Model
     public function addEntity($user, $title, $description, $thumbnail, $selectedType, $url, $own)
     {
 
-        $this->user_id = $user;
-        $this->title = $title;
+        $this->user_id     = $user;
+        $this->title       = $title;
         $this->description = $description;
-        $this->thumbnail = $thumbnail;
-        $this->url = $url;
-        $this->own = $own;
+        $this->thumbnail   = $thumbnail;
+        $this->url         = $url;
+        $this->own         = $own;
 
         $this->save();
 
@@ -72,17 +72,54 @@ class EntityGateway extends Model
 
         $carbon = Carbon::now(-$limit);
 
-        $query = self::select('*')->where('created_at', '>', $carbon)->get();
+
+        $query = self::leftJoin('entity_ratings', 'entity_id', 'entity.id')->
+        select(
+            'entity.id',
+            'entity.user_id',
+            'title',
+            'description',
+            'thumbnail',
+            'url',
+            'own',
+            'selected_type',
+            'isEdited',
+            'isDeleted',
+            'entity.created_at',
+            'entity.updated_at',
+            DB::raw('count(entity_ratings.entity_id) as rating')
+        )->where('entity.created_at', '>', $carbon)->groupBy('entity.id')->orderBy('rating','desc')
+            ->get();
 
         if (empty($query)) {
             throw new ApiException(404, '404_no_content');
         }
+
+        return $query;
     }
+
 
     public function getUserEntities($userId)
     {
 
-        $query = self::select('*')->where('user_id', '=', $userId)->get();
+        $query = self::leftJoin('entity_ratings', 'entity_id', 'entity.id')->
+        select(
+            'entity.id',
+            'entity.user_id',
+            'title',
+            'description',
+            'thumbnail',
+            'url',
+            'own',
+            'selected_type',
+            'isEdited',
+            'isDeleted',
+            'entity.created_at',
+            'entity.updated_at',
+            DB::raw('count(entity_ratings.entity_id) as rating')
+        )->where('entity.user_id', $userId)->groupBy('entity.id')
+            ->get();
+
 
         return $query;
     }
