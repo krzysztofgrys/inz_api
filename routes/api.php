@@ -39,25 +39,31 @@ Route::group(
     });
 
     Route::group(
-        ['namespace' => 'App\Top'], function (){
-            Route::resource('top', 'TopController');
+        ['namespace' => 'App\Top'], function () {
+        Route::resource('top', 'TopController');
     });
 
     Route::group(
-        ['namespace' => 'App\Comments'], function(){
-            Route::resource('comment', 'CommentsController');
+        ['namespace' => 'App\Comments'], function () {
+        Route::resource('comment', 'CommentsController');
     }
     );
 
     Route::group(
-        ['namespace' => 'App\Messages'], function(){
+        ['namespace' => 'App\Messages'], function () {
         Route::resource('messages', 'MessagesController');
     }
     );
 
     Route::group(
-        ['namespace' => 'App\Ratings'], function(){
+        ['namespace' => 'App\Ratings'], function () {
         Route::resource('rate', 'RatingsController');
+    }
+    );
+
+    Route::group(
+        ['namespace' => 'App\Search'], function () {
+        Route::resource('search', 'SearchController');
     }
     );
 

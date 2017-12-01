@@ -72,11 +72,11 @@ class EntityGateway extends Model
 
         $carbon = Carbon::now();
 
-        if(is_numeric($limit)){
+        if (is_numeric($limit)) {
             $carbon = $carbon->subHour($limit);
-        }else{
+        } else {
 
-            switch ($limit){
+            switch ($limit) {
                 case 'week':
                     $carbon = $carbon->subWeek(1);
 
@@ -99,8 +99,6 @@ class EntityGateway extends Model
         }
 
 
-
-
         $query = self::leftJoin('entity_ratings', 'entity_id', 'entity.id')->
         select(
             'entity.id',
@@ -116,7 +114,7 @@ class EntityGateway extends Model
             'entity.created_at',
             'entity.updated_at',
             DB::raw('count(entity_ratings.entity_id) as rating')
-        )->where('entity.created_at', '>', $carbon)->groupBy('entity.id')->orderBy('rating','desc')
+        )->where('entity.created_at', '>', $carbon)->groupBy('entity.id')->orderBy('rating', 'desc')
             ->get();
 
         if (empty($query)) {
@@ -148,6 +146,29 @@ class EntityGateway extends Model
         )->where('entity.user_id', $userId)->groupBy('entity.id')
             ->get();
 
+
+        return $query;
+    }
+
+    public function searchEntities($string)
+    {
+        $query = self::leftJoin('entity_ratings', 'entity_id', 'entity.id')->
+        select(
+            'entity.id',
+            'entity.user_id',
+            'title',
+            'description',
+            'thumbnail',
+            'url',
+            'own',
+            'selected_type',
+            'isEdited',
+            'isDeleted',
+            'entity.created_at',
+            'entity.updated_at',
+            DB::raw('count(entity_ratings.entity_id) as rating')
+        )->where('entity.title', 'like', "%$string%")->orWhere('entity.description', 'like', "%$string%")->groupBy('entity.id')
+            ->get();
 
         return $query;
     }

@@ -35,7 +35,7 @@ class AutoCompleteController extends Controller
         $userName = $request->get('userName');
 
 
-        $result = $this->usersGateway->searchUser($userName);
+        $result = $this->usersGateway->searchUserAC($userName);
 
         return json_encode($result);
 

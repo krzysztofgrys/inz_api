@@ -43,11 +43,18 @@ class UsersGateway extends Model
     }
 
 
+    public function searchUserAC($userName)
+    {
+
+        $query = $this->select('name')->where('name', 'like', "%$userName%")->get()->pluck('name');
+        return $query;
+
+    }
+
     public function searchUser($userName)
     {
 
-        $query = $this->select('name')->where('name', 'like', $userName)->get()->pluck('name');
-
+        $query = $this->select('name','avatar','id')->where('name', 'like', "%$userName%")->get();
         return $query;
 
     }

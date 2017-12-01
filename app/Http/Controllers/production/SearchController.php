@@ -10,15 +10,51 @@
 namespace App\Search;
 
 
-use App\Exception\ApiException;
+use App\Entity\EntityGateway;
 use App\Http\Controllers\Controller;
+use App\Users\UsersGateway;
 use Illuminate\Http\Request;
-use App\Response\ApiResponse;
-use Validator;
 
 
-class SearchController extends Controller{
+class SearchController extends Controller
+{
 
 
+    protected $entityGateway;
+    protected $usersGateway;
+
+    public function __construct(EntityGateway $entityGateway, UsersGateway $usersGateway)
+    {
+        $this->entityGateway = $entityGateway;
+        $this->usersGateway  = $usersGateway;
+    }
+
+    public function show(Request $request, $show)
+    {
+        $type    = $request->get('type');
+        $users   = [];
+        $entries = [];
+
+        switch ($type) {
+            case 'entry':
+                $entries = $this->entityGateway->searchEntities($show);
+                break;
+
+            case 'profile':
+                $users = $this->usersGateway->searchUser($show);
+                break;
+
+            default:
+                return json_encode([]);
+        }
+
+        $result = [
+            'users'   => $users,
+            'entries' => $entries
+        ];
+
+        return json_encode($result);
+
+    }
 
 }
