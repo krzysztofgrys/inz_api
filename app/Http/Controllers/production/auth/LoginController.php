@@ -30,7 +30,7 @@ class LoginController extends Controller
 
             $user = Auth::user();
 
-            $success['token'] =  $user->createToken('MyApp')->accessToken;
+            $success['token'] =  $user->createToken('cryptoPlace')->accessToken;
             $success['user'] =   $user;
 
             return response()->json(['success' => $success], $this->successStatus);

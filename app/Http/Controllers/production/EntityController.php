@@ -22,7 +22,7 @@ class EntityController extends Controller
 
     public function __construct(EntityGateway $entityGateway, RatingGateway $ratingGateway)
     {
-        $this->middleware('auth:api', ['only' => ['store']]);
+        $this->middleware('auth:api', ['only' => ['store', 'destroy']]);
         $this->entityGateway = $entityGateway;
         $this->ratingGateway = $ratingGateway;
     }
@@ -39,6 +39,7 @@ class EntityController extends Controller
             $response1['title']       = $entity->title;
             $response1['description'] = $entity->description;
             $response1['media']       = $entity->media;
+            $response1['thumbnail']   = $entity->thumbnail;
             $response1['rating']      = array_key_exists($entity->id, $rating->toArray()) ? $rating[$entity->id]->count : 0;
             $response1['href']        = $_SERVER['REQUEST_URI'] . '/' . $entity->id;
             $response[]               = $response1;
@@ -54,14 +55,15 @@ class EntityController extends Controller
 
         $response = [];
         foreach ($entities as $entity) {
-            $response1['user_name']    = $entity->user_name;
-            $response1['entity_id']    = $entity->entity_id;
-            $response1['user_id']      = $entity->user_id;
-            $response1['media']        = $entity->media;
-            $response1['title']        = $entity->title;
-            $response1['rating']       = $rating;
+            $response1['user_name']   = $entity->user_name;
+            $response1['entity_id']   = $entity->entity_id;
+            $response1['user_id']     = $entity->user_id;
+            $response1['media']       = $entity->media;
+            $response1['title']       = $entity->title;
+            $response1['thumbnail']   = $entity->thumbnail;
+            $response1['rating']      = $rating;
             $response1['description'] = $entity->description;
-            $response[]                = $response1;
+            $response[]               = $response1;
         }
 
         return ApiResponse::makeResponse($response);
@@ -94,6 +96,21 @@ class EntityController extends Controller
             $input['url'], $input['own_input']);
 
         return $this->entityGateway->getLatestId();
+    }
+
+
+    public function destroy($entityId)
+    {
+        $user = Auth::user();
+
+        $entities = $this->entityGateway->deleteEntity($entityId, $user->id);
+
+        if ($entities) {
+            return 'ok';
+        }
+
+        return 'error';
+
     }
 
 

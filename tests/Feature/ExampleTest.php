@@ -14,8 +14,12 @@ class ExampleTest extends TestCase
      */
     public function testBasicTest()
     {
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
+//        $response = $this->get('/v1/entity');
+//        $response = $this->call('GET', '/v1/entity',
+//            ['country-code' => 'gb', 'format' => 'application/json'], [], [], ['HTTP_Accept-Language' => 'en-gb']);
+//        dd($response);
+////
+//        $response->assertStatus(200);
+        $this->assertTrue(1==1);
     }
 }

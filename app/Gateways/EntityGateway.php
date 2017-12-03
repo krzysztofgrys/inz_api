@@ -20,7 +20,9 @@ class EntityGateway extends Model
 
     public function getEntities()
     {
-        $query = self::all();
+        $query = self::select('*')
+            ->where('isDeleted', false)
+            ->get();
 
 //        if ($query->isEmpty()) {
 //            throw new ApiException(404, '404_no_content');
@@ -36,10 +38,15 @@ class EntityGateway extends Model
             'entity.id AS entity_id',
             'users.name as user_name',
             'entity.title as title',
-            'entity.description as description')->where('entity.id', '=', $entity)->get();
+            'entity.thumbnail as thumbnail',
+            'entity.description as description'
+        )
+            ->where('entity.id', '=', $entity)
+            ->where('isDeleted', false)
+            ->get();
 
 
-        if (empty($query)) {
+        if ($query->isEmpty()) {
             throw new ApiException(404, '404_no_content');
         }
 
@@ -48,14 +55,11 @@ class EntityGateway extends Model
 
     public function addEntity($user, $title, $description, $thumbnail, $selectedType, $url, $own)
     {
-
         $this->user_id     = $user;
         $this->title       = $title;
         $this->description = $description;
         $this->thumbnail   = $thumbnail;
         $this->url         = $url;
-        $this->own         = $own;
-
         $this->save();
 
 
@@ -114,7 +118,11 @@ class EntityGateway extends Model
             'entity.created_at',
             'entity.updated_at',
             DB::raw('count(entity_ratings.entity_id) as rating')
-        )->where('entity.created_at', '>', $carbon)->groupBy('entity.id')->orderBy('rating', 'desc')
+        )
+            ->where('entity.created_at', '>', $carbon)
+            ->where('isDeleted', false)
+            ->groupBy('entity.id')
+            ->orderBy('rating', 'desc')
             ->get();
 
         if (empty($query)) {
@@ -143,7 +151,10 @@ class EntityGateway extends Model
             'entity.created_at',
             'entity.updated_at',
             DB::raw('count(entity_ratings.entity_id) as rating')
-        )->where('entity.user_id', $userId)->groupBy('entity.id')
+        )
+            ->where('entity.user_id', $userId)
+            ->where('isDeleted', false)
+            ->groupBy('entity.id')
             ->get();
 
 
@@ -167,10 +178,26 @@ class EntityGateway extends Model
             'entity.created_at',
             'entity.updated_at',
             DB::raw('count(entity_ratings.entity_id) as rating')
-        )->where('entity.title', 'like', "%$string%")->orWhere('entity.description', 'like', "%$string%")->groupBy('entity.id')
+        )
+            ->where('entity.title', 'like', "%$string%")
+            ->where('isDeleted', false)
+            ->orWhere('entity.description', 'like', "%$string%")
+            ->groupBy('entity.id')
             ->get();
 
         return $query;
+    }
+
+    public function deleteEntity($entityId, $id)
+    {
+        $entity = $this->find($entityId);
+        if ($entity->user_id != $id) {
+            return false;
+        }
+        $entity->isDeleted = true;
+        $entity->save();
+
+        return true;
     }
 }
 

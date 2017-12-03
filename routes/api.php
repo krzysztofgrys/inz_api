@@ -16,56 +16,41 @@ use Illuminate\Http\Request;
 
 Route::group(
     ['prefix' => 'v1'], function () {
-
     Route::group(
         ['namespace' => 'App\Auth'], function () {
         Route::resource('login', 'LoginController');
         Route::resource('register', 'RegisterController');
-    });
-
-    Route::group(
-        ['namespace' => 'App\Tags', 'middleware' => 'auth:api'], function () {
-        Route::resource('tags', 'TagsController');
     });
     Route::group(
         ['namespace' => 'App\Users'], function () {
         Route::resource('users', 'UsersController');
         Route::resource('user_autocomplete', 'AutoCompleteController');
     });
-
     Route::group(
         ['namespace' => 'App\Entity'], function () {
         Route::resource('entity', 'EntityController');
     });
-
     Route::group(
         ['namespace' => 'App\Top'], function () {
         Route::resource('top', 'TopController');
     });
-
     Route::group(
         ['namespace' => 'App\Comments'], function () {
         Route::resource('comment', 'CommentsController');
-    }
-    );
-
+    });
     Route::group(
         ['namespace' => 'App\Messages'], function () {
         Route::resource('messages', 'MessagesController');
-    }
-    );
-
+    });
     Route::group(
         ['namespace' => 'App\Ratings'], function () {
         Route::resource('rate', 'RatingsController');
-    }
-    );
-
+    });
     Route::group(
         ['namespace' => 'App\Search'], function () {
         Route::resource('search', 'SearchController');
-    }
-    );
+    });
+});
 
-}
-);
+
+
