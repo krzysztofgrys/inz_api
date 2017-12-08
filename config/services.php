@@ -35,8 +35,8 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
     'github' => [
-        'client_id'     => env('e340f31111e185994511'),
-        'client_secret' => env('aea09414257aec45c8fd64a53077b09f223919d9'),
+        'client_id'     => 'e340f31111e185994511',
+        'client_secret' => 'aea09414257aec45c8fd64a53077b09f223919d9',
         'redirect'      => 'http://145.239.81.226:8002/login/github/callback',
     ],
 

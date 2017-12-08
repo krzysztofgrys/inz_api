@@ -44,14 +44,16 @@ class LoginController extends Controller
     public function redirectToProvider()
     {
 
-        return Socialite::driver('github')->redirect();
+        return Socialite::with('github')->stateless()->redirect()->getTargetUrl();
     }
 
 
-    public function handleProviderCallback()
+    public function handleProviderCallback(Request $request)
     {
-        dd(1);
+
+        $request->get('code');
         $user = Socialite::driver('github')->stateless()->user();
+        dd($user);
 
     }
 
