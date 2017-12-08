@@ -75,17 +75,20 @@ class LoginController extends Controller
 
     public function loginOrCreateAccount($user)
     {
-        $user = User::where('email', $user->email)->first();
+        $foundUser = User::where('email', $user->email)->first();
 
-        if (!$user) {
+        if (!$foundUser) {
             $user = User::create([
                 'name'     => $user->login,
                 'email'    => $user->email,
                 'password' => bcrypt(''),
             ]);
+        } else {
+            $user = $foundUser;
         }
 
         Auth::login($user, true);
+        $user = Auth::user();
 
 
         return $user;
