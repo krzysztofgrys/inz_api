@@ -40,7 +40,12 @@ class UsersGateway extends Model
 
         $query = $this->select('name')->where('name', 'like', "%$userName%")->get()->pluck('name');
         return $query;
+    }
 
+    public function getUserByEmail($email){
+        $query = $this->select('*')->where('email', '=', $email)->get();
+
+        return $query;
     }
 
     public function searchUser($userName)

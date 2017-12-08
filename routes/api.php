@@ -18,8 +18,8 @@ Route::group(
     ['prefix' => 'v1'], function () {
     Route::group(
         ['namespace' => 'App\Auth'], function () {
-        Route::get('login/github', 'LoginController@redirectToProvider');
-        Route::get('login/github/callback', 'LoginController@handleProviderCallback');
+        Route::get('login/{service}', 'LoginController@redirectToProvider');
+        Route::get('login/{service}/callback', 'LoginController@handleProviderCallback');
         Route::post('login', 'LoginController@store');
         Route::post('register', 'RegisterController@store');
 

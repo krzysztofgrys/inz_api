@@ -8,6 +8,7 @@
 
 namespace App\Auth;
 
+use App\Users\UsersGateway;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
@@ -20,6 +21,13 @@ class LoginController extends Controller
 {
 
     public $successStatus = 200;
+
+    protected $usersGateway;
+
+    public function __construct(UsersGateway $usersGateway)
+    {
+        $this->usersGateway = $usersGateway;
+    }
 
     /**
      * login api
@@ -41,19 +49,46 @@ class LoginController extends Controller
         }
     }
 
-    public function redirectToProvider()
+    public function redirectToProvider($service)
     {
-
-        return Socialite::with('github')->stateless()->redirect()->getTargetUrl();
+        return Socialite::with($service)->stateless()->redirect()->getTargetUrl();
     }
 
 
-    public function handleProviderCallback(Request $request)
+    public function handleProviderCallback(Request $request, $service)
     {
 
+
         $request->get('code');
-        $user = Socialite::driver('github')->stateless()->user();
-        dd($user);
+        $user = Socialite::driver($service)->stateless()->user();
+
+        $user = $this->loginOrCreateAccount($user);
+
+
+        $success['token'] = $user->createToken('cryptoPlace')->accessToken;
+        $success['user']  = $user;
+
+        return response()->json(['success' => $success], $this->successStatus);
+
+    }
+
+
+    public function loginOrCreateAccount($user)
+    {
+        $user = User::where('email', $user->email)->first();
+
+        if (!$user) {
+            $user = User::create([
+                'name'     => $user->login,
+                'email'    => $user->email,
+                'password' => bcrypt(''),
+            ]);
+        }
+
+        Auth::login($user, true);
+
+
+        return $user;
 
     }
 
