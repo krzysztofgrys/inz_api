@@ -30,7 +30,6 @@ class  CommentsController extends Controller
         $comments = $this->commentsGateway->getEntityComments($entity);
 
         return ApiResponse::makeResponse($comments);
-
     }
 
     public function store(Request $request)

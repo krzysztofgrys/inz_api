@@ -27,11 +27,6 @@ class  UsersController extends Controller
 
     }
 
-    public function index()
-    {
-        return 1;
-    }
-
     public function show(Request $request, $user)
     {
         $user         = $this->usersGateway->getUser($user)[0];
@@ -47,7 +42,6 @@ class  UsersController extends Controller
 
     public function update(Request $request, $user)
     {
-
 
         $city        = $request->get('city', '');
         $description = $request->get('description', '');

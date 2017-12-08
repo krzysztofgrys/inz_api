@@ -35,14 +35,6 @@ class UsersGateway extends Model
 
     }
 
-
-    public function updateUserData()
-    {
-
-
-    }
-
-
     public function searchUserAC($userName)
     {
 

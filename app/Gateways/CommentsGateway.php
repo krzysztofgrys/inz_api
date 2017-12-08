@@ -21,11 +21,8 @@ class CommentsGateway extends Model
 
     public function getEntityComments($entity)
     {
-
         $query = $this->join('entity_comments', 'comments.id', '=', 'entity_comments.comments_id')->
         select('*')->where('entity_comments.entity_id', '=', $entity)->where('comments.isDeleted', false)->get();
-
-
         return $query;
 
     }
@@ -51,6 +48,10 @@ class CommentsGateway extends Model
 
     public function deleteComment()
     {
+
+    }
+
+    public function updateComment(){
 
     }
 

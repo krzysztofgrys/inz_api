@@ -62,12 +62,8 @@ class EntityGateway extends Model
         $this->url         = $url;
         $this->save();
 
+        return $this->id;
 
-    }
-
-    public function getLatestId()
-    {
-        return self::all()->last()->id;
     }
 
 

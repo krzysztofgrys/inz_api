@@ -92,10 +92,10 @@ class EntityController extends Controller
 
 
         $user = Auth::user();
-        $this->entityGateway->addEntity($user->id, $input['title'], $input['description'], $input['thumbnail'], $input['selected_type'],
+        $id = $this->entityGateway->addEntity($user->id, $input['title'], $input['description'], $input['thumbnail'], $input['selected_type'],
             $input['url'], $input['own_input']);
 
-        return $this->entityGateway->getLatestId();
+        return $id;
     }
 
 
