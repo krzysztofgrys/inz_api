@@ -110,13 +110,15 @@ class EntityGateway extends Model
         }
 
 
-        $query = self::leftJoin('entity_ratings', 'entity_id', 'entity.id')->
+        $query = $this->join('users', 'entity.user_id', '=', 'users.id')->
+        leftJoin('entity_ratings', 'entity_id', 'entity.id')->
         select(
             'entity.id',
             'entity.user_id',
+            'users.name as user_name',
             'title',
-            'description',
-            'thumbnail',
+            'entity.description',
+            'entity.thumbnail',
             'url',
             'own',
             'selected_type',
@@ -128,7 +130,7 @@ class EntityGateway extends Model
         )
             ->where('entity.created_at', '>', $carbon)
             ->where('isDeleted', false)
-            ->groupBy('entity.id')
+            ->groupBy('entity.id','users.name')
             ->orderBy('rating', 'desc')
             ->get();
 
