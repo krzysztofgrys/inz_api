@@ -20,7 +20,9 @@ class EntityGateway extends Model
 
     public function getEntities()
     {
-        $query = $this->join('users', 'entity.user_id', '=', 'users.id') ->select(
+        $query = $this->join('users', 'entity.user_id', '=', 'users.id')->
+        leftJoin('entity_comments', 'entity.id', '=', 'entity_comments.entity_id')->
+        select(
             'entity.id as id',
             'users.id as user_id',
             'entity.description as description',
@@ -28,10 +30,11 @@ class EntityGateway extends Model
             'entity.thumbnail as thumbnail',
             'entity.url as url',
             'users.name as user_name',
-            'entity.created_at as created_at'
-
+            'entity.created_at as created_at',
+            DB::raw('count(entity_comments.entity_id) as comments')
         )
             ->where('isDeleted', false)
+            ->groupBy('entity.id','users.id')
             ->orderBy('entity.created_at', 'desc')
             ->get();
 
@@ -56,7 +59,6 @@ class EntityGateway extends Model
             ->where('isDeleted', false)
             ->get();
 
-
         if ($query->isEmpty()) {
             throw new ApiException(404, '404_no_content');
         }
@@ -64,7 +66,7 @@ class EntityGateway extends Model
         return $query;
     }
 
-    public function addEntity($user, $title, $description, $thumbnail, $selectedType, $url, $own)
+    public function addEntity($user, $title, $description, $thumbnail, $url)
     {
         $this->user_id     = $user;
         $this->title       = $title;
@@ -74,7 +76,6 @@ class EntityGateway extends Model
         $this->save();
 
         return $this->id;
-
     }
 
 
@@ -130,7 +131,7 @@ class EntityGateway extends Model
         )
             ->where('entity.created_at', '>', $carbon)
             ->where('isDeleted', false)
-            ->groupBy('entity.id','users.name')
+            ->groupBy('entity.id', 'users.name')
             ->orderBy('rating', 'desc')
             ->get();
 

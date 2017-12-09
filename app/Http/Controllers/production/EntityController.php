@@ -41,8 +41,11 @@ class EntityController extends Controller
             $response1['media']       = $entity->media;
             $response1['thumbnail']   = $entity->thumbnail;
             $response1['rating']      = array_key_exists($entity->id, $rating->toArray()) ? $rating[$entity->id]->count : 0;
-            $response1['user_name']   = $entity->name;
-            $response1['created_at']  = $entity->created_at;
+            $response1['user_name']   = $entity->user_name;
+            $response1['created_at']  = $entity->created_at->format('d.m.Y - H:i');
+            $response1['url']         = $entity->url;
+            $response1['comments']    = $entity->comments;
+            $response1['domain']      = parse_url($entity->url, PHP_URL_HOST);
             $response[]               = $response1;
         }
 
@@ -93,8 +96,8 @@ class EntityController extends Controller
 
 
         $user = Auth::user();
-        $id   = $this->entityGateway->addEntity($user->id, $input['title'], $input['description'], $input['thumbnail'], $input['selected_type'],
-            $input['url'], $input['own_input']);
+        $id   = $this->entityGateway->addEntity($user->id, $input['title'], $input['description'], $input['thumbnail'],
+            $input['url']);
 
         return $id;
     }
