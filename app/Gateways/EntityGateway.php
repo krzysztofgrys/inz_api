@@ -20,7 +20,17 @@ class EntityGateway extends Model
 
     public function getEntities()
     {
-        $query = $this->join('users', 'entity.user_id', '=', 'users.id') ->select('*')
+        $query = $this->join('users', 'entity.user_id', '=', 'users.id') ->select(
+            'entity.id as id',
+            'users.id as user_id',
+            'entity.description as description',
+            'entity.title as title',
+            'entity.thumbnail as thumbnail',
+            'entity.url as url',
+            'users.name as user_name',
+            'entity.created_at as created_at'
+
+        )
             ->where('isDeleted', false)
             ->orderBy('entity.created_at', 'desc')
             ->get();
