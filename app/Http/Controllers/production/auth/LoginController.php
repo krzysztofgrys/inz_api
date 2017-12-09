@@ -8,6 +8,8 @@
 
 namespace App\Auth;
 
+use App\Exception\ApiException;
+use App\Response\ApiResponse;
 use App\Users\UsersGateway;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -19,8 +21,6 @@ use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {
-
-    public $successStatus = 200;
 
     /**
      * login api
@@ -36,10 +36,10 @@ class LoginController extends Controller
             $success['token'] = $user->createToken('cryptoPlace')->accessToken;
             $success['user']  = $user;
 
-            return response()->json(['success' => $success], $this->successStatus);
-        } else {
-            return response()->json(['error' => 'Unauthorised'], 401);
+            return ApiResponse::makeResponse($success);
         }
+        throw new ApiException(401, 'Unauthorised');
+
     }
 
     public function redirectToProvider($service)

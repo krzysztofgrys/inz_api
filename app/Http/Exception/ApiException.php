@@ -15,18 +15,17 @@ class ApiException extends \Exception implements HttpExceptionInterface
 {
     private   $statusCode;
     private   $headers;
-    protected $message       = null;
-    protected $apiErrorCode;
-    protected $detailMessage = null;
+    protected $message = '';
 
-    public function __construct($statusCode, $message)
+    public function __construct($statusCode, $message, $headers = [], $previous = null)
     {
 
         $this->statusCode = $statusCode;
         $this->message    = $message;
+        $this->headers    = $headers;
 
 
-        parent::__construct($this->message, $statusCode);
+        parent::__construct($this->message, $statusCode, $previous);
     }
 
     public function getStatusCode()

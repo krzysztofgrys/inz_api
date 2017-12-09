@@ -8,6 +8,7 @@
 
 namespace App\Entity;
 
+use App\Exception\ApiException;
 use App\Http\Controllers\Controller;
 use App\Ratings\RatingGateway;
 use Illuminate\Http\Request;
@@ -18,7 +19,6 @@ class EntityController extends Controller
 {
     protected $entityGateway;
     protected $ratingGateway;
-
 
     public function __construct(EntityGateway $entityGateway, RatingGateway $ratingGateway)
     {
