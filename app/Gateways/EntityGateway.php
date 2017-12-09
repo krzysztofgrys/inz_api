@@ -20,7 +20,7 @@ class EntityGateway extends Model
 
     public function getEntities()
     {
-        $query = self::select('*')
+        $query = $this->join('users', 'entity.user_id', '=', 'users.id') ->select('*')
             ->where('isDeleted', false)
             ->get();
 
