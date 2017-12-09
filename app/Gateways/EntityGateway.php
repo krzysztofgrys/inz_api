@@ -22,6 +22,7 @@ class EntityGateway extends Model
     {
         $query = $this->join('users', 'entity.user_id', '=', 'users.id') ->select('*')
             ->where('isDeleted', false)
+            ->orderBy('created_at', 'desc')
             ->get();
 
 //        if ($query->isEmpty()) {

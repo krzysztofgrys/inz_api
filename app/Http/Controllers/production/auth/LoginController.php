@@ -22,13 +22,6 @@ class LoginController extends Controller
 
     public $successStatus = 200;
 
-    protected $usersGateway;
-
-    public function __construct(UsersGateway $usersGateway)
-    {
-        $this->usersGateway = $usersGateway;
-    }
-
     /**
      * login api
      *
