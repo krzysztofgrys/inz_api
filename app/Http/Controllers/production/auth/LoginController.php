@@ -61,12 +61,11 @@ class LoginController extends Controller
         $success['token'] = $user->createToken('cryptoPlace')->accessToken;
         $success['user']  = $user;
 
-        return response()->json(['success' => $success], $this->successStatus);
-
+        return ApiResponse::makeResponse($success);
     }
 
 
-    public function loginOrCreateAccount($user)
+    private function loginOrCreateAccount($user)
     {
         $foundUser = User::where('email', $user->email)->first();
 
@@ -83,9 +82,7 @@ class LoginController extends Controller
         Auth::login($user, true);
         $user = Auth::user();
 
-
         return $user;
-
     }
 
 
