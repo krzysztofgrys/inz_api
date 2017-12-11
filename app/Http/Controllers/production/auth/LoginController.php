@@ -50,8 +50,6 @@ class LoginController extends Controller
 
     public function handleProviderCallback(Request $request, $service)
     {
-
-
         $request->get('code');
         $user = Socialite::driver($service)->stateless()->user();
 
