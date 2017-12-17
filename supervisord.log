@@ -110,3 +110,9 @@
 2017-11-29 14:22:58,404 INFO spawned: 'php-fpm' with pid 8
 2017-11-29 14:22:59,761 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
 2017-11-29 14:22:59,762 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2017-12-15 08:42:45,641 CRIT Supervisor running as root (no user in config file)
+2017-12-15 08:42:45,658 INFO supervisord started with pid 1
+2017-12-15 08:42:46,664 INFO spawned: 'nginx' with pid 7
+2017-12-15 08:42:46,670 INFO spawned: 'php-fpm' with pid 8
+2017-12-15 08:42:48,405 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2017-12-15 08:42:48,417 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)

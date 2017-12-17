@@ -17,7 +17,7 @@ class Comments extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->string('comments');
+            $table->string('comments',1000);
             $table->boolean('isEdited')->default(false);
             $table->boolean('isDeleted')->default(false);
             $table->timestamps();

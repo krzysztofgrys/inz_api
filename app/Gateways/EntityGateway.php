@@ -38,9 +38,9 @@ class EntityGateway extends Model
             ->orderBy('entity.created_at', 'desc')
             ->get();
 
-//        if ($query->isEmpty()) {
-//            throw new ApiException(404, '404_no_content');
-//        }
+        if ($query->isEmpty()) {
+            throw new ApiException(404, '404_no_content');
+        }
 
         return $query;
     }

@@ -22,11 +22,9 @@ Route::group(
         Route::get('login/{service}/callback', 'LoginController@handleProviderCallback');
         Route::post('login', 'LoginController@store');
         Route::post('register', 'RegisterController@store');
-
     });
     Route::group(
         ['namespace' => 'App\OAuth'], function () {
-
     });
     Route::group(
         ['namespace' => 'App\Users'], function () {
@@ -57,8 +55,10 @@ Route::group(
         ['namespace' => 'App\Search'], function () {
         Route::resource('search', 'SearchController');
     });
-
 });
+
+
+
 
 
 

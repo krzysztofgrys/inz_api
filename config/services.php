@@ -29,15 +29,30 @@ return [
         'secret' => env('SPARKPOST_SECRET'),
     ],
 
-    'stripe' => [
+    'stripe'   => [
         'model'  => App\User::class,
         'key'    => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
-    'github' => [
+    'github'   => [
         'client_id'     => 'e340f31111e185994511',
         'client_secret' => 'aea09414257aec45c8fd64a53077b09f223919d9',
         'redirect'      => 'http://145.239.81.226:8002/login/github/callback',
+    ],
+    'twitter'  => [
+        'client_id'     => 'e340f31111e185994511',
+        'client_secret' => 'aea09414257aec45c8fd64a53077b09f223919d9',
+        'redirect'      => 'http://145.239.81.226:8002/login/twitter/callback',
+    ],
+    'facebook' => [
+        'client_id'     => 'ee25d7e3bfb89698556362e22071bd2b',
+        'client_secret' => 'bf46e15b5207b51cd4b329ef6111edcc',
+        'redirect'      => 'http://145.239.81.226:8002/login/facebook/callback',
+    ],
+    'google'   => [
+        'client_id'     => 'e340f31111e185994511',
+        'client_secret' => 'aea09414257aec45c8fd64a53077b09f223919d9',
+        'redirect'      => 'http://145.239.81.226:8002/login/google/callback',
     ],
 
 ];

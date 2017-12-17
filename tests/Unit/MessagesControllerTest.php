@@ -25,142 +25,21 @@ class MessagesControllerTest extends TestCase
         $this->assertTrue(true);
         $this->assertTrue(true);
         $this->assertTrue(true);
+
         $this->assertTrue(true);
         $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
+
     }
 
     public function test(){
         $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
+
+
     }
 
     public function test1(){
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
-        $this->assertTrue(true);
+
+
         $this->assertTrue(true);
         $this->assertTrue(true);
     }

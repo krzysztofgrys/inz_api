@@ -6,11 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class Entity extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+
     public function up()
     {
         Schema::create('entity', function (Blueprint $table) {
@@ -19,7 +15,7 @@ class Entity extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('title', 100);
             $table->string('description', 360);
-            $table->string('thumbnail');
+            $table->string('thumbnail', 100);
             $table->string('url');
             $table->boolean('isEdited')->default(false);
             $table->boolean('isDeleted')->default(false);
@@ -27,11 +23,7 @@ class Entity extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
+
     public function down()
     {
         Schema::dropIfExists('entity');

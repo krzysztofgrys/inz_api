@@ -30,7 +30,7 @@ class  UsersController extends Controller
     public function show(Request $request, $user)
     {
         $user         = $this->usersGateway->getUser($user)[0];
-        $userEntities = $this->entityGateway->getUserEntities($user->id);
+        $userEntities = $this->entityGateway->getUserEntities($user->upid);
 
         $response = [
             'user'          => $user,

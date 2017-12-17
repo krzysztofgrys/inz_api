@@ -52,9 +52,6 @@ class ApiResponse extends Response
             ];
 
             return Response::json($content, $e->getStatusCode(), $header);
-
         }
-
-
     }
 }

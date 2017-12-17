@@ -56,18 +56,14 @@ class UsersGateway extends Model
 
     }
 
-
     public function editUser($id, $city, $description, $fullname)
     {
-
         $user = $this::find($id);
 
         $user->city        = $city;
         $user->description = $description;
         $user->fullname    = $fullname;
-
         $user->save();
-
 
         return $id;
     }
