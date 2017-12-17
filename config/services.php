@@ -47,7 +47,7 @@ return [
     'facebook' => [
         'client_id'     => '2018368981779356',
         'client_secret' => '56bc298c31d652e69b8e1fca18888edb',
-        'redirect'      => 'http://145.239.81.226:8002/login/facebook/callback',
+        'redirect'      => 'http://api.krzysztofgrys.pl/login/facebook/callback',
     ],
     'google'   => [
         'client_id'     => 'e340f31111e185994511',
