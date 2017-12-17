@@ -37,12 +37,12 @@ return [
     'github'   => [
         'client_id'     => 'e340f31111e185994511',
         'client_secret' => 'aea09414257aec45c8fd64a53077b09f223919d9',
-        'redirect'      => 'http://145.239.81.226:8002/login/github/callback',
+        'redirect'      => 'http://crypt.krzysztofgrys.pl:8002/login/github/callback',
     ],
     'twitter'  => [
         'client_id'     => 'e340f31111e185994511',
         'client_secret' => 'aea09414257aec45c8fd64a53077b09f223919d9',
-        'redirect'      => 'http://145.239.81.226:8002/login/twitter/callback',
+        'redirect'      => 'http://crypt.krzysztofgrys.pl:8002/login/twitter/callback',
     ],
     'facebook' => [
         'client_id'     => '2018368981779356',
