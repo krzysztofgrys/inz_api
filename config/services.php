@@ -45,8 +45,8 @@ return [
         'redirect'      => 'http://145.239.81.226:8002/login/twitter/callback',
     ],
     'facebook' => [
-        'client_id'     => 'ee25d7e3bfb89698556362e22071bd2b',
-        'client_secret' => 'bf46e15b5207b51cd4b329ef6111edcc',
+        'client_id'     => '2018368981779356',
+        'client_secret' => '56bc298c31d652e69b8e1fca18888edb',
         'redirect'      => 'http://145.239.81.226:8002/login/facebook/callback',
     ],
     'google'   => [
