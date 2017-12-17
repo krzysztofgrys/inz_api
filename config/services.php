@@ -50,8 +50,8 @@ return [
         'redirect'      => 'http://crypt.krzysztofgrys.pl:8002/login/facebook/callback',
     ],
     'google'   => [
-        'client_id'     => 'e340f31111e185994511',
-        'client_secret' => 'aea09414257aec45c8fd64a53077b09f223919d9',
+        'client_id'     => '715097515227-1i71ae3klr6h3ftij9k0ss4902tku4nm.apps.googleusercontent.com',
+        'client_secret' => 'HbmrXle9UiRE3yLAoQ7opVzM',
         'redirect'      => 'http://crypt.krzysztofgrys.pl:8002/login/google/callback',
     ],
 
