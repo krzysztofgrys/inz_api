@@ -87,8 +87,11 @@ class LoginController extends Controller
                     dd(1);
                     break;
                 case 'bitbucket':
-                    var_dump($user);
-                    dd(1);
+                    $user = User::create([
+                        'name'     => $user->nickname,
+                        'email'    => $user->email,
+                        'password' => bcrypt(''),
+                    ]);
                     break;
 
 
