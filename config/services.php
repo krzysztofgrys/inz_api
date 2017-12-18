@@ -29,27 +29,27 @@ return [
         'secret' => env('SPARKPOST_SECRET'),
     ],
 
-    'stripe'   => [
+    'stripe'    => [
         'model'  => App\User::class,
         'key'    => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
-    'github'   => [
+    'github'    => [
         'client_id'     => 'e340f31111e185994511',
         'client_secret' => 'aea09414257aec45c8fd64a53077b09f223919d9',
         'redirect'      => 'http://crypt.krzysztofgrys.pl:8002/login/github/callback',
     ],
-    'twitter'  => [
-        'client_id'     => 'e340f31111e185994511',
-        'client_secret' => 'aea09414257aec45c8fd64a53077b09f223919d9',
-        'redirect'      => 'http://crypt.krzysztofgrys.pl:8002/login/twitter/callback',
+    'bitbucket' => [
+        'client_id'     => 'UHMRmk4DNSx3rNwUgL',
+        'client_secret' => 'zc2WAXgWfJufQEar9yep2NDYXaU295Ns',
+        'redirect'      => 'http://crypt.krzysztofgrys.pl:8002/login/bitbucket/callback',
     ],
-    'facebook' => [
+    'facebook'  => [
         'client_id'     => '2018368981779356',
         'client_secret' => '56bc298c31d652e69b8e1fca18888edb',
         'redirect'      => 'http://crypt.krzysztofgrys.pl:8002/login/facebook/callback',
     ],
-    'google'   => [
+    'google'    => [
         'client_id'     => '715097515227-1i71ae3klr6h3ftij9k0ss4902tku4nm.apps.googleusercontent.com',
         'client_secret' => 'HbmrXle9UiRE3yLAoQ7opVzM',
         'redirect'      => 'http://crypt.krzysztofgrys.pl:8002/login/google/callback',

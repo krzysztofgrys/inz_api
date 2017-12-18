@@ -44,6 +44,7 @@ class LoginController extends Controller
 
     public function redirectToProvider($service)
     {
+
         return Socialite::with($service)->stateless()->redirect()->getTargetUrl();
     }
 
@@ -66,10 +67,10 @@ class LoginController extends Controller
     private function loginOrCreateAccount($user)
     {
         $foundUser = User::where('email', $user->email)->first();
-        
+
         if (!$foundUser) {
             $user = User::create([
-                'name'     => $user->user->login,
+                'name'     => $user->user['login'],
                 'email'    => $user->email,
                 'password' => bcrypt(''),
             ]);
