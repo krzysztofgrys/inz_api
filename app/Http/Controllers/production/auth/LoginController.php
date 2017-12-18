@@ -54,7 +54,7 @@ class LoginController extends Controller
         $request->get('code');
         $user = Socialite::driver($service)->stateless()->user();
 
-        $user = $this->loginOrCreateAccount($user);
+        $user = $this->loginOrCreateAccount($user, $service);
 
 
         $success['token'] = $user->createToken('cryptoPlace')->accessToken;
@@ -64,17 +64,35 @@ class LoginController extends Controller
     }
 
 
-    private function loginOrCreateAccount($user)
+    private function loginOrCreateAccount($user, $service)
     {
         $foundUser = User::where('email', $user->email)->first();
 
         if (!$foundUser) {
-            $user = User::create([
-                'name'     => $user->user['login'],
-                'email'    => $user->email,
-                'password' => bcrypt(''),
-            ]);
+            switch ($service) {
+                case 'github':
+                    $user = User::create([
+                        'name'     => $user->user['login'],
+                        'email'    => $user->email,
+                        'password' => bcrypt(''),
+                    ]);
+                    break;
 
+                case 'google':
+                    var_dump($user);
+                    dd(1);
+                    break;
+                case 'facebook':
+                    var_dump($user);
+                    dd(1);
+                    break;
+                case 'bitbucket':
+                    var_dump($user);
+                    dd(1);
+                    break;
+
+
+            }
         } else {
             $user = $foundUser;
         }
@@ -84,6 +102,5 @@ class LoginController extends Controller
 
         return $user;
     }
-
 
 }
