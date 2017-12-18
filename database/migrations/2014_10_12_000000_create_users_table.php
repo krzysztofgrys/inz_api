@@ -20,9 +20,9 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('city', 100)->nullable();
             $table->date('date_of_birth')->nullable();
-            $table->string('fullname', 100) -> nullable();
-            $table->string('description',500)->nullable();
-            $table->string('avatar',100)->nullable();
+            $table->string('fullname', 100)->nullable();
+            $table->string('description', 500)->nullable();
+            $table->string('avatar', 100)->default('default.png');
             $table->rememberToken();
             $table->timestamps();
         });
