@@ -21,11 +21,15 @@ class CommentsGateway extends Model
 
     public function getEntityComments($entity)
     {
-        $query = $this->join('entity_comments', 'comments.id', '=', 'entity_comments.comments_id')
+        $query = $this->join('entity_comments', 'comments.id', '=', 'entity_comments.comments_id')->
+        join('users', 'comments.user_id', '=', 'users.id')
             ->select(
                 'comments.user_id as user_id',
                 'comments.id as id',
-                'comments.comments as comments'
+                'users.name as name',
+                'comments.comments as comments',
+                'comments.created_at as created_at',
+                'comments.isEdited as edited'
             )
             ->where('entity_comments.entity_id', '=', $entity)
             ->where('comments.isDeleted', false)
