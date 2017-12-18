@@ -22,7 +22,7 @@ class EntityController extends Controller
 
     public function __construct(EntityGateway $entityGateway, RatingGateway $ratingGateway)
     {
-        $this->middleware('auth:api', ['only' => ['store', 'destroy']]);
+        $this->middleware('auth:api', ['only' => ['store', 'destroy', 'update']]);
         $this->entityGateway = $entityGateway;
         $this->ratingGateway = $ratingGateway;
     }
@@ -54,23 +54,25 @@ class EntityController extends Controller
 
     public function show(Request $request, $entity)
     {
-        $entities = $this->entityGateway->getEntity($entity);
-        $rating   = $this->ratingGateway->getEntityRating($entity);
-
-        $response = [];
+        $entities  = $this->entityGateway->getEntity($entity);
+        $rating    = $this->ratingGateway->getEntityRating($entity);
+        $response1 = [];
         foreach ($entities as $entity) {
-            $response1['user_name']   = $entity->user_name;
-            $response1['entity_id']   = $entity->entity_id;
+
+            $response1['id']          = $entity->id;
             $response1['user_id']     = $entity->user_id;
-            $response1['media']       = $entity->media;
             $response1['title']       = $entity->title;
-            $response1['thumbnail']   = $entity->thumbnail;
-            $response1['rating']      = $rating;
             $response1['description'] = $entity->description;
-            $response[]               = $response1;
+            $response1['thumbnail']   = $entity->thumbnail;
+            $response1['is_edited']   = $entity->edited;
+            $response1['rating']      = $rating;
+            $response1['user_name']   = $entity->user_name;
+            $response1['created_at']  = $entity->created_at->format('d.m.Y - H:i');
+            $response1['url']         = $entity->url;
+            $response1['domain']      = parse_url($entity->url, PHP_URL_HOST);
         }
 
-        return ApiResponse::makeResponse($response);
+        return ApiResponse::makeResponse($response1);
     }
 
     public function store(Request $request)
@@ -100,6 +102,24 @@ class EntityController extends Controller
             $input['url']);
 
         return $id;
+    }
+
+    public function update(Request $request, $id)
+    {
+
+        $input = [
+            'title'       => $request->get('title'),
+            'description' => $request->get('description'),
+            'thumbnail'   => $request->get('thumbnail'),
+            'url'         => $request->get('url'),
+
+        ];
+
+        Auth::user();
+
+        $entity = $this->entityGateway->editEntity($id, $input['title'], $input['description'], $input['url'], $input['thumbnail']);
+
+        return ApiResponse::makeResponse($entity);
     }
 
 

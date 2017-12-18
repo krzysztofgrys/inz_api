@@ -34,7 +34,7 @@ class EntityGateway extends Model
             DB::raw('count(entity_comments.entity_id) as comments')
         )
             ->where('isDeleted', false)
-            ->groupBy('entity.id','users.id')
+            ->groupBy('entity.id', 'users.id')
             ->orderBy('entity.created_at', 'desc')
             ->get();
 
@@ -48,17 +48,19 @@ class EntityGateway extends Model
     public function getEntity($entity)
     {
         $query = $this->join('users', 'entity.user_id', '=', 'users.id')->
-        select('users.id AS user_id',
-            'entity.id AS entity_id',
-            'users.name as user_name',
+        select('entity.id as id',
+            'users.id as user_id',
+            'entity.description as description',
             'entity.title as title',
             'entity.thumbnail as thumbnail',
-            'entity.description as description'
+            'entity.url as url',
+            'users.name as user_name',
+            'entity.isEdited as edited',
+            'entity.created_at as created_at'
         )
             ->where('entity.id', '=', $entity)
             ->where('isDeleted', false)
             ->get();
-
         if ($query->isEmpty()) {
             throw new ApiException(404, '404_no_content');
         }
@@ -209,5 +211,26 @@ class EntityGateway extends Model
 
         return true;
     }
+
+
+    public function editEntity($id, $title, $description, $url, $thumbnail)
+    {
+        $entity = $this->find($id);
+
+        $entity->title       = $title;
+        $entity->description = $description;
+        $entity->url         = $url;
+        $entity->isEdited    = true;
+
+        if ($thumbnail != '') {
+            $entity->thumbnail = $thumbnail;
+        }
+
+        $entity->save();
+
+        return $id;
+    }
+
+
 }
 
