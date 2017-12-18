@@ -79,12 +79,12 @@ class LoginController extends Controller
                     break;
 
                 case 'google':
-                    var_dump($user);
-                    dd(1);
-                    break;
                 case 'facebook':
-                    var_dump($user);
-                    dd(1);
+                    $user = User::create([
+                        'name'     => $user->name,
+                        'email'    => $user->email,
+                        'password' => bcrypt(''),
+                    ]);
                     break;
                 case 'bitbucket':
                     $user = User::create([
