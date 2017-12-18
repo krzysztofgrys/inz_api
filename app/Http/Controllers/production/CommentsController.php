@@ -22,7 +22,7 @@ class  CommentsController extends Controller
     public function __construct(CommentsGateway $commentsGateway)
     {
         $this->commentsGateway = $commentsGateway;
-        $this->middleware('auth:api', ['only' => ['store']]);
+        $this->middleware('auth:api', ['only' => ['store', 'destroy', 'update']]);
     }
 
     public function show(Request $request, $entity)
@@ -46,6 +46,22 @@ class  CommentsController extends Controller
 
     public function destroy(Request $request, $entityId)
     {
+        $user = Auth::user();
+
+        $result = $this->commentsGateway->deleteComment($request->get('comment'));
+
+        return 'ok';
+
+    }
+
+
+    public function update(Request $request, $id)
+    {
+        $user = Auth::user();
+
+        $result = $this->commentsGateway->editComment($request->get('comment_id'), $request->get('comment'));
+
+        return 'ok';
 
     }
 

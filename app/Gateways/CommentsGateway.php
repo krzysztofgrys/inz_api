@@ -58,14 +58,23 @@ class CommentsGateway extends Model
 
     }
 
-    public function deleteComment()
+    public function deleteComment($commentid)
     {
 
+        $comment            = $this->find($commentid);
+        $comment->isDeleted = true;
+        $comment->save();
+
+        return true;
     }
 
-    public function updateComment()
+    public function editComment($id, $body)
     {
+        $comment           = $this->find($id);
+        $comment->isEdited = true;
+        $comment->comments  = $body;
+        $comment->save();
 
+        return true;
     }
-
 }
