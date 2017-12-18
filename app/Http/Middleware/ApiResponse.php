@@ -18,7 +18,6 @@ class ApiResponse extends Response
     {
 
         $final[$nodeName] = $data;
-
         $response = Response::json($final, 200);
         $response->header('Content-Type', 'application/json');
 
