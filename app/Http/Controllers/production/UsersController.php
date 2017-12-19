@@ -30,7 +30,8 @@ class  UsersController extends Controller
     public function show(Request $request, $user)
     {
         $user         = $this->usersGateway->getUser($user)[0];
-        $userEntities = $this->entityGateway->getUserEntities($user->upid);
+        $userEntities = $this->entityGateway->getUserEntities($user->id);
+
 
         $response = [
             'user'          => $user,
@@ -46,11 +47,12 @@ class  UsersController extends Controller
         $city        = $request->get('city', '');
         $description = $request->get('description', '');
         $fullname    = $request->get('fullname', '');
+        $age         = $request->get('age');
         $password    = $request->get('password', '');
         $c_password  = $request->get('c_password', '');
         $avatar      = $request->get('avatar', '');
 
-        $user = $this->usersGateway->editUser($user, $city, $description, $fullname, $password, $c_password, $avatar);
+        $user = $this->usersGateway->editUser($user, $city, $description, $fullname, $password, $c_password, $avatar, $age);
 
         return $user;
     }

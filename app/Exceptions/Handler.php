@@ -55,7 +55,7 @@ class Handler extends ExceptionHandler
             'getHeaders') && !empty($exception->getHeaders()) ? $exception->getHeaders() : $request->headers->all();
         $headers['Access-Control-Allow-Origin'] = '*';
 
-        $code = (method_exists($exception, 'getStatusCode') ? $exception->getStatusCode() : $exception->getCode());
+        $code = (method_exists($exception, 'getStatusCode') ? $exception->getStatusCode() : 200);
 
         return ApiResponse::encode($exception, $code, $headers);
     }

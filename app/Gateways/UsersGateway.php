@@ -71,13 +71,14 @@ class UsersGateway extends Model
         return $query;
     }
 
-    public function editUser($id, $city, $description, $fullname, $password, $c_password, $avatar)
+    public function editUser($id, $city, $description, $fullname, $password, $c_password, $avatar, $age)
     {
         $user = $this::find($id);
 
         $user->city        = $city;
         $user->description = $description;
         $user->fullname    = $fullname;
+        $user->age         = $age;
         if (!empty($password) && !empty($c_password)) {
             $user->password = bcrypt($password);
         }

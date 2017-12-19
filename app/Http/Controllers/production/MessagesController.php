@@ -40,7 +40,19 @@ class MessagesController extends Controller
 
         $messages = $this->messagesGateway->getConversations($user);
 
-        return ApiResponse::makeResponse($messages);
+        $res    = [];
+        $result = [];
+
+        foreach ($messages as $message) {
+            $result['receiver_id']   = $message->receiver_id;
+            $result['sender_id']     = $message->sender_id;
+            $result['receiver_name'] = $message->name;
+            $result['sender_name']   = $this->usersGateway->getUser($message->sender_id)[0]->name;
+            $result['avatar']        = $message->avatar;
+            $res[]                   = $result;
+        }
+
+        return ApiResponse::makeResponse($res);
 
     }
 
@@ -65,7 +77,7 @@ class MessagesController extends Controller
 
     public function store(Request $request)
     {
-        $user     = Auth::user();
+        $user = Auth::user();
 
         $receiver = $request->get('receiver');
 

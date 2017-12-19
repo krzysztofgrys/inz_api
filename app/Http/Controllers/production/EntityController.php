@@ -31,16 +31,17 @@ class EntityController extends Controller
     {
         $entities = $this->entityGateway->getEntities();
         $rating   = $this->ratingGateway->getEntitiesRating();
+//
 
         $response = [];
         foreach ($entities as $entity) {
+
             $response1['id']          = $entity->id;
             $response1['user_id']     = $entity->user_id;
             $response1['title']       = $entity->title;
             $response1['description'] = $entity->description;
-            $response1['media']       = $entity->media;
             $response1['thumbnail']   = $entity->thumbnail;
-            $response1['rating']      = array_key_exists($entity->id, $rating->toArray()) ? $rating[$entity->id]->count : 0;
+            $response1['rating']      = array_key_exists($entity->id, $rating) ? $rating[$entity->id]->count : 0;
             $response1['user_name']   = $entity->user_name;
             $response1['created_at']  = $entity->created_at->format('d.m.Y - H:i');
             $response1['url']         = $entity->url;

@@ -56,7 +56,7 @@ class RatingGateway extends Model
 
         $query = DB::table('entity_ratings')->selectRaw(
             'entity_id, COUNT(*) 
-           ')->groupBy('entity_id')->get()->keyBy('entity_id');
+           ')->groupBy('entity_id')->get()->keyBy('entity_id')->toArray();
 
         return $query;
     }

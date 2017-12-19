@@ -18,14 +18,14 @@ class ApiResponse extends Response
     {
 
         $final[$nodeName] = $data;
-        $response = Response::json($final, 200);
+        $response         = Response::json($final, 200);
         $response->header('Content-Type', 'application/json');
 
         return $response;
     }
 
 
-    public static function encode($data, $statusCode, $header)
+    public static function encode($data, $statusCode = 200, $header)
     {
         try {
             $content = [
