@@ -31,9 +31,11 @@ class RatingsController extends Controller
 
     public function store(Request $request)
     {
-        $user = Auth::user();
+        $user     = Auth::user();
         $entityId = $request->get('entityId');
-        $this->ratingGateway->rateEntity($entityId, $user->id);
+        $rate     = $this->ratingGateway->rateEntity($entityId, $user->id);
+
+        return ApiResponse::makeResponse($rate);
     }
 
     public function index()

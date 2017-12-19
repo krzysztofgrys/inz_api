@@ -22,7 +22,7 @@ class MessagesGateway extends Model
     {
         $query = $this->join('user_messages', 'messages.id', '=', 'user_messages.message_id')
             ->join('users', 'user_messages.receiver_id', '=', 'users.id')->
-            selectRaw('users.id, users.name, users.avatar')
+            selectRaw('users.id, users.name, users.avatar, user_messages.receiver_id, user_messages.sender_id')
             ->where('user_messages.receiver_id', '=', $from)
             ->orWhere('user_messages.sender_id', '=', $from)
             ->groupBY('user_messages.receiver_id', 'user_messages.sender_id', 'users.id', 'users.name', 'users.avatar')
