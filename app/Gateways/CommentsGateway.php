@@ -27,6 +27,7 @@ class CommentsGateway extends Model
                 'comments.user_id as user_id',
                 'comments.id as id',
                 'users.name as name',
+                'users.avatar as avatar',
                 'comments.comments as comments',
                 'comments.created_at as created_at',
                 'comments.isEdited as edited'
@@ -55,7 +56,6 @@ class CommentsGateway extends Model
                 'comments_id' => $id
             ]
         );
-
     }
 
     public function deleteComment($commentid)
@@ -72,7 +72,7 @@ class CommentsGateway extends Model
     {
         $comment           = $this->find($id);
         $comment->isEdited = true;
-        $comment->comments  = $body;
+        $comment->comments = $body;
         $comment->save();
 
         return true;

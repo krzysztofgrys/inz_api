@@ -39,6 +39,14 @@ class MessagesGateway extends Model
             ->whereIn('user_messages.sender_id', [$receiver, $sender])
             ->get();
 
+
+//                $query = $this->join('user_messages', 'messages.id', '=', 'user_messages.message_id')->
+//        select('*')
+//            ->where('user_messages.receiver_id', $receiver)
+//            ->orWhere('user_messages.sender_id', $sender)
+//            ->get();
+
+
         return $query;
     }
 

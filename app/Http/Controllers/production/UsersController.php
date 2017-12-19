@@ -46,8 +46,11 @@ class  UsersController extends Controller
         $city        = $request->get('city', '');
         $description = $request->get('description', '');
         $fullname    = $request->get('fullname', '');
+        $password    = $request->get('password', '');
+        $c_password  = $request->get('c_password', '');
+        $avatar      = $request->get('avatar', '');
 
-        $user = $this->usersGateway->editUser($user, $city, $description, $fullname);
+        $user = $this->usersGateway->editUser($user, $city, $description, $fullname, $password, $c_password, $avatar);
 
         return $user;
     }

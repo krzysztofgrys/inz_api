@@ -24,12 +24,20 @@ class UsersGateway extends Model
     {
         $query = $this->select('*')->where('id', '=', $id)->get();
 
+        if ($query->isEmpty()) {
+            throw new ApiException(404, '404_no_content');
+        }
+
         return $query;
     }
 
     public function getUserByName($name)
     {
         $query = $this->select('id', 'name', 'avatar')->where('name', '=', $name)->get();
+
+        if ($query->isEmpty()) {
+            throw new ApiException(404, '404_no_content');
+        }
 
         return $query;
 
@@ -39,30 +47,43 @@ class UsersGateway extends Model
     {
 
         $query = $this->select('name')->where('name', 'like', "%$userName%")->get()->pluck('name');
+
         return $query;
     }
 
-    public function getUserByEmail($email){
+    public function getUserByEmail($email)
+    {
         $query = $this->select('*')->where('email', '=', $email)->get();
+        if ($query->isEmpty()) {
+            throw new ApiException(404, '404_no_content');
+        }
 
         return $query;
     }
 
     public function searchUser($userName)
     {
+        $query = $this->select('name', 'avatar', 'id')->where('name', 'like', "%$userName%")->get();
+        if ($query->isEmpty()) {
+            throw new ApiException(404, '404_no_content');
+        }
 
-        $query = $this->select('name','avatar','id')->where('name', 'like', "%$userName%")->get();
         return $query;
-
     }
 
-    public function editUser($id, $city, $description, $fullname)
+    public function editUser($id, $city, $description, $fullname, $password, $c_password, $avatar)
     {
         $user = $this::find($id);
 
         $user->city        = $city;
         $user->description = $description;
         $user->fullname    = $fullname;
+        if (!empty($password) && !empty($c_password)) {
+            $user->password = bcrypt($password);
+        }
+        if ($avatar != '') {
+            $user->avatar = $avatar;
+        }
         $user->save();
 
         return $id;
