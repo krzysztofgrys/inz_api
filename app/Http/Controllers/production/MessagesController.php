@@ -44,17 +44,23 @@ class MessagesController extends Controller
         $result = [];
 
         foreach ($messages as $message) {
-            $result['receiver_id']   = $message->receiver_id;
-            $result['sender_id']     = $message->sender_id;
-            $result['receiver_name'] = $message->name;
-            $result['sender_name']   = $this->usersGateway->getUser($message->sender_id)[0]->name;
-            $result['avatar']        = $message->avatar;
-            $result['avatar_second'] = $this->usersGateway->getUser($message->sender_id)[0]->avatar;
+
+            if ($message->receiver_id == $user) {
+                $sender   = $message->sender_id;
+                $receiver = $message->receiver_id;
+            } else {
+                $sender   = $message->receiver_id;
+                $receiver = $message->sender_id;
+            }
+            $result['receiver_id']   = $receiver;
+            $result['sender_id']     = $sender;
+            $result['receiver_name'] = $this->usersGateway->getUser($receiver)[0]->name;
+            $result['sender_name']   = $this->usersGateway->getUser($sender)[0]->name;
+            $result['avatar']        = '';
             $res[]                   = $result;
         }
 
         return ApiResponse::makeResponse($res);
-
     }
 
     public function show($id)

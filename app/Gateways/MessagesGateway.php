@@ -20,13 +20,20 @@ class MessagesGateway extends Model
 
     public function getConversations($from)
     {
-        $query = $this->join('user_messages', 'messages.id', '=', 'user_messages.message_id')
-            ->join('users', 'user_messages.receiver_id', '=', 'users.id')->
-            selectRaw('users.id, users.name, users.avatar, user_messages.receiver_id, user_messages.sender_id')
-            ->where('user_messages.receiver_id', '=', $from)
-            ->orWhere('user_messages.sender_id', '=', $from)
-            ->groupBY('user_messages.receiver_id', 'user_messages.sender_id', 'users.id', 'users.name', 'users.avatar')
-            ->get();
+//        $query = $this->join('user_messages', 'messages.id', '=', 'user_messages.message_id')
+//            ->join('users', 'user_messages.receiver_id', '=', 'users.id')->
+//            selectRaw('users.id, users.name, users.avatar, user_messages.receiver_id, user_messages.sender_id')
+//            ->where('user_messages.receiver_id', '=', $from)
+//            ->orWhere('user_messages.sender_id', '=', $from)
+//            ->where('user_messages.receiver_id', '<', 'user_messages.sender_id')
+//            ->groupBY('user_messages.receiver_id', 'user_messages.sender_id', 'users.id', 'users.name', 'users.avatar')
+//            ->get();
+
+
+
+
+        $query = DB::select(DB::raw('SELECT DISTINCT receiver_id,sender_id FROM user_messages t1 WHERE t1.receiver_id > t1.sender_id OR NOT EXISTS ( SELECT * FROM user_messages t2 WHERE t2.receiver_id = t1.sender_id AND t2.sender_id = t1.receiver_id)'));
+
 
         return $query;
     }
