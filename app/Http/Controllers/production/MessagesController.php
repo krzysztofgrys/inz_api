@@ -56,7 +56,7 @@ class MessagesController extends Controller
             $result['sender_id']     = $sender;
             $result['receiver_name'] = $this->usersGateway->getUser($receiver)[0]->name;
             $result['sender_name']   = $this->usersGateway->getUser($sender)[0]->name;
-            $result['avatar']        = '';
+            $result['avatar']        = $this->usersGateway->getUser($sender)[0]->avatar;
             $res[]                   = $result;
         }
 
